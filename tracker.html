@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>March Madness 2026 - Model Tracker</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #0a0e17;
+    --card: #131a2b;
+    --card-border: #1e2a42;
+    --accent: #f97316;
+    --accent2: #3b82f6;
+    --accent3: #10b981;
+    --text: #e2e8f0;
+    --text-dim: #64748b;
+    --correct: #10b981;
+    --wrong: #ef4444;
+    --pending: #64748b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .scorecard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 600px) { .scorecard { grid-template-columns: repeat(2, 1fr); } }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    text-align: center;
+  }
+
+  .stat-card .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-card .value {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+
+  .stat-card .detail {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 0.25rem;
+  }
+
+  .correct .value { color: var(--correct); }
+  .wrong .value { color: var(--wrong); }
+  .pending-stat .value { color: var(--pending); }
+
+  .round-section {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .round-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .round-header h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent2);
+  }
+
+  .round-record {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .game {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    margin: 0.3rem 0;
+    border-radius: 0.5rem;
+    background: rgba(255,255,255,0.02);
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .game:hover { background: rgba(255,255,255,0.05); }
+
+  .game .status {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .status-correct { background: rgba(16,185,129,0.2); color: var(--correct); }
+  .status-wrong { background: rgba(239,68,68,0.2); color: var(--wrong); }
+  .status-pending { background: rgba(100,116,139,0.2); color: var(--pending); }
+
+  .game .pick {
+    flex: 1;
+  }
+
+  .game .pick .winner-name { font-weight: 600; }
+  .game .pick .matchup-detail { color: var(--text-dim); font-size: 0.8rem; }
+
+  .game .prob {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 1rem;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+
+  .prob-high { background: rgba(16,185,129,0.15); color: var(--correct); }
+  .prob-mid { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .prob-low { background: rgba(239,68,68,0.15); color: var(--wrong); }
+
+  .game .actual {
+    font-size: 0.8rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    min-width: 80px;
+    text-align: right;
+  }
+
+  .actual-correct { color: var(--correct); }
+  .actual-wrong { color: var(--wrong); }
+  .actual-pending { color: var(--pending); }
+
+  .upset-alert {
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    font-size: 0.85rem;
+    color: var(--wrong);
+  }
+
+  .footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+  }
+
+  .footer a { color: var(--accent2); text-decoration: none; }
+
+  .instructions {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.85rem;
+    line-height: 1.8;
+  }
+
+  .instructions h3 { color: var(--accent2); margin-bottom: 0.5rem; }
+  .instructions code {
+    background: rgba(255,255,255,0.1);
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>March Madness 2026 Model Tracker</h1>
+<p class="subtitle">ML predictions vs actual results, updated in real time</p>
+
+<div class="scorecard" id="scorecard"></div>
+
+<div id="rounds"></div>
+
+<div class="instructions">
+  <h3>How to Update</h3>
+  <p>Edit the <code>ACTUAL_RESULTS</code> object in this file. For each game, add the actual winner's name. The tracker recalculates everything automatically.</p>
+  <p>Format: <code>"Round of 64": { "0": "Duke", "1": "Ohio St.", ... }</code> where the number is the game index (shown in each row).</p>
+</div>
+
+<div class="footer">
+  Model: Stacked Ensemble (LR + GB + RF + HGB) | 73.6% holdout accuracy | 10,000 simulations<br>
+  <a href="https://github.com/jasonbhorne/march-madness-2026">GitHub</a> |
+  <a href="https://www.jasonhorne.org/blog/2026/3/19/i-let-a-machine-fill-out-my-bracket">Blog Post</a> |
+  jasonhorne.org
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════════════════
+// MODEL PREDICTIONS (from Colab run)
+// ════════════════════════════════════════════════════════════════════
+const PREDICTIONS = {
+  "Round of 64": [
+    {"winner":"Duke","winner_seed":1,"loser":"Siena","loser_seed":16,"prob":91.0},
+    {"winner":"Ohio St.","winner_seed":8,"loser":"TCU","loser_seed":9,"prob":74.1},
+    {"winner":"St. John's","winner_seed":5,"loser":"Northern Iowa","loser_seed":12,"prob":86.5},
+    {"winner":"Kansas","winner_seed":4,"loser":"Cal Baptist","loser_seed":13,"prob":83.6},
+    {"winner":"Louisville","winner_seed":6,"loser":"South Florida","loser_seed":11,"prob":73.0},
+    {"winner":"Michigan St.","winner_seed":3,"loser":"North Dakota St.","loser_seed":14,"prob":86.8},
+    {"winner":"UCLA","winner_seed":7,"loser":"UCF","loser_seed":10,"prob":73.4},
+    {"winner":"Connecticut","winner_seed":2,"loser":"Furman","loser_seed":15,"prob":90.5},
+    {"winner":"Florida","winner_seed":1,"loser":"Prairie View A&M","loser_seed":16,"prob":90.4},
+    {"winner":"Iowa","winner_seed":9,"loser":"Clemson","loser_seed":8,"prob":57.0},
+    {"winner":"Vanderbilt","winner_seed":5,"loser":"McNeese St.","loser_seed":12,"prob":79.3},
+    {"winner":"Nebraska","winner_seed":4,"loser":"Troy","loser_seed":13,"prob":88.0},
+    {"winner":"North Carolina","winner_seed":6,"loser":"VCU","loser_seed":11,"prob":59.0},
+    {"winner":"Illinois","winner_seed":3,"loser":"Penn","loser_seed":14,"prob":89.3},
+    {"winner":"Saint Mary's","winner_seed":7,"loser":"Texas A&M","loser_seed":10,"prob":67.0},
+    {"winner":"Houston","winner_seed":2,"loser":"Idaho","loser_seed":15,"prob":90.6},
+    {"winner":"Arizona","winner_seed":1,"loser":"LIU Brooklyn","loser_seed":16,"prob":90.2},
+    {"winner":"Villanova","winner_seed":8,"loser":"Utah St.","loser_seed":9,"prob":58.5},
+    {"winner":"Wisconsin","winner_seed":5,"loser":"High Point","loser_seed":12,"prob":86.8},
+    {"winner":"Arkansas","winner_seed":4,"loser":"Hawaii","loser_seed":13,"prob":87.5},
+    {"winner":"BYU","winner_seed":6,"loser":"Texas","loser_seed":11,"prob":68.2},
+    {"winner":"Gonzaga","winner_seed":3,"loser":"Kennesaw St.","loser_seed":14,"prob":88.6},
+    {"winner":"Miami FL","winner_seed":7,"loser":"Missouri","loser_seed":10,"prob":67.2},
+    {"winner":"Purdue","winner_seed":2,"loser":"Queens","loser_seed":15,"prob":90.4},
+    {"winner":"Michigan","winner_seed":1,"loser":"Howard","loser_seed":16,"prob":90.7},
+    {"winner":"Georgia","winner_seed":8,"loser":"Saint Louis","loser_seed":9,"prob":70.1},
+    {"winner":"Texas Tech","winner_seed":5,"loser":"Akron","loser_seed":12,"prob":84.3},
+    {"winner":"Alabama","winner_seed":4,"loser":"Hofstra","loser_seed":13,"prob":84.7},
+    {"winner":"Tennessee","winner_seed":6,"loser":"Miami OH","loser_seed":11,"prob":84.4},
+    {"winner":"Virginia","winner_seed":3,"loser":"Wright St.","loser_seed":14,"prob":89.0},
+    {"winner":"Santa Clara","winner_seed":10,"loser":"Kentucky","loser_seed":7,"prob":62.7},
+    {"winner":"Iowa St.","winner_seed":2,"loser":"Tennessee St.","loser_seed":15,"prob":89.8}
+  ],
+  "Round of 32": [
+    {"winner":"Duke","winner_seed":1,"loser":"Ohio St.","loser_seed":8,"prob":87.2},
+    {"winner":"St. John's","winner_seed":5,"loser":"Kansas","loser_seed":4,"prob":63.2},
+    {"winner":"Michigan St.","winner_seed":3,"loser":"Louisville","loser_seed":6,"prob":60.5},
+    {"winner":"Connecticut","winner_seed":2,"loser":"UCLA","loser_seed":7,"prob":75.2},
+    {"winner":"Florida","winner_seed":1,"loser":"Iowa","loser_seed":9,"prob":83.2},
+    {"winner":"Vanderbilt","winner_seed":5,"loser":"Nebraska","loser_seed":4,"prob":60.9},
+    {"winner":"Illinois","winner_seed":3,"loser":"North Carolina","loser_seed":6,"prob":83.8},
+    {"winner":"Houston","winner_seed":2,"loser":"Saint Mary's","loser_seed":7,"prob":84.5},
+    {"winner":"Arizona","winner_seed":1,"loser":"Villanova","loser_seed":8,"prob":86.2},
+    {"winner":"Arkansas","winner_seed":4,"loser":"Wisconsin","loser_seed":5,"prob":58.6},
+    {"winner":"Gonzaga","winner_seed":3,"loser":"BYU","loser_seed":6,"prob":66.9},
+    {"winner":"Purdue","winner_seed":2,"loser":"Miami FL","loser_seed":7,"prob":82.0},
+    {"winner":"Michigan","winner_seed":1,"loser":"Georgia","loser_seed":8,"prob":87.3},
+    {"winner":"Texas Tech","winner_seed":5,"loser":"Alabama","loser_seed":4,"prob":56.1},
+    {"winner":"Virginia","winner_seed":3,"loser":"Tennessee","loser_seed":6,"prob":62.9},
+    {"winner":"Iowa St.","winner_seed":2,"loser":"Santa Clara","loser_seed":10,"prob":68.4}
+  ],
+  "Sweet 16": [
+    {"winner":"Duke","winner_seed":1,"loser":"St. John's","loser_seed":5,"prob":83.1},
+    {"winner":"Connecticut","winner_seed":2,"loser":"Michigan St.","loser_seed":3,"prob":62.1},
+    {"winner":"Florida","winner_seed":1,"loser":"Vanderbilt","loser_seed":5,"prob":69.1},
+    {"winner":"Houston","winner_seed":2,"loser":"Illinois","loser_seed":3,"prob":63.2},
+    {"winner":"Arizona","winner_seed":1,"loser":"Arkansas","loser_seed":4,"prob":74.0},
+    {"winner":"Purdue","winner_seed":2,"loser":"Gonzaga","loser_seed":3,"prob":76.1},
+    {"winner":"Michigan","winner_seed":1,"loser":"Texas Tech","loser_seed":5,"prob":81.1},
+    {"winner":"Iowa St.","winner_seed":2,"loser":"Virginia","loser_seed":3,"prob":58.8}
+  ],
+  "Elite Eight": [
+    {"winner":"Duke","winner_seed":1,"loser":"Connecticut","loser_seed":2,"prob":76.5},
+    {"winner":"Houston","winner_seed":2,"loser":"Florida","loser_seed":1,"prob":65.3},
+    {"winner":"Arizona","winner_seed":1,"loser":"Purdue","loser_seed":2,"prob":59.8},
+    {"winner":"Michigan","winner_seed":1,"loser":"Iowa St.","loser_seed":2,"prob":73.2}
+  ],
+  "Final Four": [
+    {"winner":"Duke","winner_seed":1,"loser":"Houston","loser_seed":2,"prob":59.8},
+    {"winner":"Michigan","winner_seed":1,"loser":"Arizona","loser_seed":1,"prob":58.2}
+  ],
+  "Championship": [
+    {"winner":"Duke","winner_seed":1,"loser":"Michigan","loser_seed":1,"prob":57.0}
+  ]
+};
+
+// ════════════════════════════════════════════════════════════════════
+// ACTUAL RESULTS - UPDATE THIS AS GAMES ARE PLAYED
+// Format: { "Round of 64": { 0: "Duke", 1: "TCU", ... }, ... }
+// Use the game index (shown as #N in each row) and the winning team name
+// ════════════════════════════════════════════════════════════════════
+const ACTUAL_RESULTS = {
+  "Round of 64": {
+    0: "Duke",           // (1) Duke 71, (16) Siena 65
+    1: "TCU",            // (9) TCU 66, (8) Ohio St. 64 — UPSET
+    // 2: "",            // (5) St. John's vs (12) Northern Iowa
+    // 3: "",            // (4) Kansas vs (13) Cal Baptist
+    4: "Louisville",     // (6) Louisville 83, (11) South Florida 79
+    // 5: "",            // (3) Michigan St. vs (14) North Dakota St.
+    // 6: "",            // (7) UCLA vs (10) UCF
+    // 7: "",            // (2) Connecticut vs (15) Furman
+    // 8: "",            // (1) Florida vs (16) Prairie View A&M
+    // 9: "",            // (9) Iowa vs (8) Clemson
+    10: "Vanderbilt",    // (5) Vanderbilt 78, (12) McNeese St. 68
+    11: "Nebraska",      // (4) Nebraska 76, (13) Troy 47
+    // 12: "",           // (6) North Carolina vs (11) VCU
+    // 13: "",           // (3) Illinois vs (14) Penn
+    // 14: "",           // (7) Saint Mary's vs (10) Texas A&M
+    // 15: "",           // (2) Houston vs (15) Idaho
+    // 16: "",           // (1) Arizona vs (16) LIU Brooklyn
+    // 17: "",           // (8) Villanova vs (9) Utah St.
+    18: "High Point",    // (12) High Point 83, (5) Wisconsin 82 — UPSET
+    // 19: "",           // (4) Arkansas vs (13) Hawaii
+    // 20: "",           // (6) BYU vs (11) Texas
+    // 21: "",           // (3) Gonzaga vs (14) Kennesaw St.
+    // 22: "",           // (7) Miami FL vs (10) Missouri
+    // 23: "",           // (2) Purdue vs (15) Queens
+    // 24: "",           // (1) Michigan vs (16) Howard
+    // 25: "",           // (8) Georgia vs (9) Saint Louis
+    // 26: "",           // (5) Texas Tech vs (12) Akron
+    // 27: "",           // (4) Alabama vs (13) Hofstra
+    // 28: "",           // (6) Tennessee vs (11) Miami OH
+    // 29: "",           // (3) Virginia vs (14) Wright St.
+    // 30: "",           // (10) Santa Clara vs (7) Kentucky
+    // 31: "",           // (2) Iowa St. vs (15) Tennessee St.
+  },
+  "Round of 32": {},
+  "Sweet 16": {},
+  "Elite Eight": {},
+  "Final Four": {},
+  "Championship": {}
+};
+
+// ════════════════════════════════════════════════════════════════════
+// RENDER
+// ════════════════════════════════════════════════════════════════════
+
+const ROUND_ORDER = ["Round of 64", "Round of 32", "Sweet 16", "Elite Eight", "Final Four", "Championship"];
+const ROUND_POINTS = {"Round of 64": 1, "Round of 32": 2, "Sweet 16": 4, "Elite Eight": 8, "Final Four": 16, "Championship": 32};
+
+let totalCorrect = 0, totalWrong = 0, totalPending = 0, totalPoints = 0, maxPoints = 0;
+const roundStats = {};
+
+ROUND_ORDER.forEach(rnd => {
+  const games = PREDICTIONS[rnd] || [];
+  const actuals = ACTUAL_RESULTS[rnd] || {};
+  let correct = 0, wrong = 0, pending = 0;
+
+  games.forEach((g, i) => {
+    const actual = actuals[i];
+    if (actual === undefined || actual === null) {
+      pending++;
+    } else if (actual === g.winner) {
+      correct++;
+      totalPoints += ROUND_POINTS[rnd];
+    } else {
+      wrong++;
+    }
+    maxPoints += ROUND_POINTS[rnd];
+  });
+
+  totalCorrect += correct;
+  totalWrong += wrong;
+  totalPending += pending;
+  roundStats[rnd] = { correct, wrong, pending, total: games.length };
+});
+
+// Scorecard
+const totalPlayed = totalCorrect + totalWrong;
+const pct = totalPlayed > 0 ? (totalCorrect / totalPlayed * 100).toFixed(1) : "---";
+document.getElementById('scorecard').innerHTML = `
+  <div class="stat-card correct">
+    <div class="label">Correct</div>
+    <div class="value">${totalCorrect}</div>
+    <div class="detail">${pct}% accuracy</div>
+  </div>
+  <div class="stat-card wrong">
+    <div class="label">Wrong</div>
+    <div class="value">${totalWrong}</div>
+    <div class="detail">${totalPlayed} decided</div>
+  </div>
+  <div class="stat-card pending-stat">
+    <div class="label">Pending</div>
+    <div class="value">${totalPending}</div>
+    <div class="detail">of ${totalCorrect + totalWrong + totalPending} total</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Points</div>
+    <div class="value" style="color: var(--accent)">${totalPoints}</div>
+    <div class="detail">of ${maxPoints} possible</div>
+  </div>
+`;
+
+// Rounds
+let roundsHTML = '';
+ROUND_ORDER.forEach(rnd => {
+  const games = PREDICTIONS[rnd] || [];
+  const actuals = ACTUAL_RESULTS[rnd] || {};
+  const stats = roundStats[rnd];
+  const played = stats.correct + stats.wrong;
+  const record = played > 0 ? `${stats.correct}-${stats.wrong}` : `0/${stats.total} played`;
+
+  roundsHTML += `<div class="round-section">
+    <div class="round-header">
+      <h2>${rnd} (${ROUND_POINTS[rnd]}pt${ROUND_POINTS[rnd] > 1 ? 's' : ''} each)</h2>
+      <span class="round-record">${record}</span>
+    </div>`;
+
+  games.forEach((g, i) => {
+    const actual = actuals[i];
+    let statusClass, statusIcon, actualText, actualClass;
+
+    if (actual === undefined || actual === null) {
+      statusClass = 'status-pending';
+      statusIcon = '?';
+      actualText = 'Pending';
+      actualClass = 'actual-pending';
+    } else if (actual === g.winner) {
+      statusClass = 'status-correct';
+      statusIcon = '\u2713';
+      actualText = '\u2713 Correct';
+      actualClass = 'actual-correct';
+    } else {
+      statusClass = 'status-wrong';
+      statusIcon = '\u2717';
+      actualText = `\u2717 ${actual}`;
+      actualClass = 'actual-wrong';
+    }
+
+    const probClass = g.prob >= 80 ? 'prob-high' : (g.prob >= 65 ? 'prob-mid' : 'prob-low');
+
+    roundsHTML += `<div class="game">
+      <span class="status ${statusClass}">${statusIcon}</span>
+      <span style="color:var(--text-dim);font-size:0.75rem;width:24px">#${i}</span>
+      <div class="pick">
+        <span class="winner-name">(${g.winner_seed}) ${g.winner}</span>
+        <span class="matchup-detail"> over (${g.loser_seed}) ${g.loser}</span>
+      </div>
+      <span class="prob ${probClass}">${g.prob}%</span>
+      <span class="actual ${actualClass}">${actualText}</span>
+    </div>`;
+  });
+
+  roundsHTML += '</div>';
+});
+
+document.getElementById('rounds').innerHTML = roundsHTML;
+</script>
+
+</body>
+</html>

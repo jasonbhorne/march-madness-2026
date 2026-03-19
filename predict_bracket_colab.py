@@ -434,40 +434,19 @@ def predict_matchup(model, feature_cols, t1_feats, t2_feats, seed1, seed2):
 # ─── 6. Bracket extraction and simulation ───────────────────────────────
 
 def get_2026_bracket():
-    """Extract the 2026 bracket, handling play-in games correctly."""
+    """Extract the 2026 bracket. First Four results already resolved in the CSV."""
     df = pd.read_csv(f"{DATA_DIR}/Tournament Matchups.csv")
-    bracket = df[df['YEAR'] == 2026].sort_values('BY YEAR NO', ascending=False)
+    r64 = df[(df['YEAR'] == 2026) & (df['CURRENT ROUND'] == 64)].sort_values('BY YEAR NO', ascending=False)
 
-    play_in = bracket[bracket['CURRENT ROUND'] == 16].sort_values('BY YEAR NO', ascending=False)
-    r64 = bracket[bracket['CURRENT ROUND'] == 64].sort_values('BY YEAR NO', ascending=False)
-
-    # Find teams that appear twice in R64 (they're in play-in games)
-    r64_teams = r64['TEAM'].value_counts()
-    play_in_team_names = set(r64_teams[r64_teams > 1].index)
-
-    # Build play-in matchups
+    # No play-in handling needed: CSV has been cleaned to show actual First Four winners
     play_in_matchups = []
-    pi_list = play_in.to_dict('records')
-    for i in range(0, len(pi_list) - 1, 2):
-        play_in_matchups.append((pi_list[i], pi_list[i + 1]))
-
-    # Build R64 matchups, deduplicating play-in teams (keep first occurrence)
-    seen_play_in = set()
-    r64_deduped = []
-    for _, row in r64.iterrows():
-        if row['TEAM'] in play_in_team_names:
-            if row['TEAM'] not in seen_play_in:
-                seen_play_in.add(row['TEAM'])
-                r64_deduped.append(row.to_dict())
-        else:
-            r64_deduped.append(row.to_dict())
 
     # Pair into matchups
+    r64_list = r64.to_dict('records')
     r64_matchups = []
-    for i in range(0, len(r64_deduped) - 1, 2):
-        r64_matchups.append((r64_deduped[i], r64_deduped[i + 1]))
+    for i in range(0, len(r64_list) - 1, 2):
+        r64_matchups.append((r64_list[i], r64_list[i + 1]))
 
-    print(f"  Play-in games: {len(play_in_matchups)}")
     print(f"  Round of 64 matchups: {len(r64_matchups)}")
 
     return play_in_matchups, r64_matchups

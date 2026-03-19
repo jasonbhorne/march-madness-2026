@@ -1,0 +1,420 @@
+{
+  "Round of 64": [
+    {
+      "winner": "Duke",
+      "winner_seed": 1,
+      "loser": "Siena",
+      "loser_seed": 16,
+      "prob": 91.0
+    },
+    {
+      "winner": "Ohio St.",
+      "winner_seed": 8,
+      "loser": "TCU",
+      "loser_seed": 9,
+      "prob": 74.1
+    },
+    {
+      "winner": "Duke",
+      "winner_seed": 1,
+      "loser": "Northern Iowa",
+      "loser_seed": 12,
+      "prob": 90.1
+    },
+    {
+      "winner": "Duke",
+      "winner_seed": 1,
+      "loser": "Cal Baptist",
+      "loser_seed": 13,
+      "prob": 90.1
+    },
+    {
+      "winner": "Louisville",
+      "winner_seed": 6,
+      "loser": "South Florida",
+      "loser_seed": 11,
+      "prob": 73.0
+    },
+    {
+      "winner": "Michigan St.",
+      "winner_seed": 3,
+      "loser": "North Dakota St.",
+      "loser_seed": 14,
+      "prob": 86.8
+    },
+    {
+      "winner": "UCLA",
+      "winner_seed": 7,
+      "loser": "UCF",
+      "loser_seed": 10,
+      "prob": 73.4
+    },
+    {
+      "winner": "Connecticut",
+      "winner_seed": 2,
+      "loser": "Furman",
+      "loser_seed": 15,
+      "prob": 90.5
+    },
+    {
+      "winner": "Florida",
+      "winner_seed": 1,
+      "loser": "Lehigh",
+      "loser_seed": 16,
+      "prob": 90.7
+    },
+    {
+      "winner": "Clemson",
+      "winner_seed": 8,
+      "loser": "Prairie View A&M",
+      "loser_seed": 16,
+      "prob": 89.0
+    },
+    {
+      "winner": "Florida",
+      "winner_seed": 1,
+      "loser": "Iowa",
+      "loser_seed": 9,
+      "prob": 82.9
+    },
+    {
+      "winner": "Florida",
+      "winner_seed": 1,
+      "loser": "McNeese St.",
+      "loser_seed": 12,
+      "prob": 83.6
+    },
+    {
+      "winner": "North Carolina",
+      "winner_seed": 6,
+      "loser": "Troy",
+      "loser_seed": 13,
+      "prob": 83.3
+    },
+    {
+      "winner": "Illinois",
+      "winner_seed": 3,
+      "loser": "VCU",
+      "loser_seed": 11,
+      "prob": 86.7
+    },
+    {
+      "winner": "Saint Mary's",
+      "winner_seed": 7,
+      "loser": "Penn",
+      "loser_seed": 14,
+      "prob": 83.1
+    },
+    {
+      "winner": "Houston",
+      "winner_seed": 2,
+      "loser": "Texas A&M",
+      "loser_seed": 10,
+      "prob": 88.2
+    },
+    {
+      "winner": "Arizona",
+      "winner_seed": 1,
+      "loser": "Idaho",
+      "loser_seed": 15,
+      "prob": 90.2
+    },
+    {
+      "winner": "Villanova",
+      "winner_seed": 8,
+      "loser": "LIU Brooklyn",
+      "loser_seed": 16,
+      "prob": 87.2
+    },
+    {
+      "winner": "Arizona",
+      "winner_seed": 1,
+      "loser": "Utah St.",
+      "loser_seed": 9,
+      "prob": 86.6
+    },
+    {
+      "winner": "Arizona",
+      "winner_seed": 1,
+      "loser": "High Point",
+      "loser_seed": 12,
+      "prob": 89.2
+    },
+    {
+      "winner": "BYU",
+      "winner_seed": 6,
+      "loser": "Hawaii",
+      "loser_seed": 13,
+      "prob": 84.0
+    },
+    {
+      "winner": "North Carolina St.",
+      "winner_seed": 11,
+      "loser": "Texas",
+      "loser_seed": 11,
+      "prob": 61.4
+    },
+    {
+      "winner": "Gonzaga",
+      "winner_seed": 3,
+      "loser": "Kennesaw St.",
+      "loser_seed": 14,
+      "prob": 88.6
+    },
+    {
+      "winner": "Miami FL",
+      "winner_seed": 7,
+      "loser": "Missouri",
+      "loser_seed": 10,
+      "prob": 67.2
+    },
+    {
+      "winner": "Purdue",
+      "winner_seed": 2,
+      "loser": "Queens",
+      "loser_seed": 15,
+      "prob": 90.4
+    },
+    {
+      "winner": "Michigan",
+      "winner_seed": 1,
+      "loser": "Howard",
+      "loser_seed": 16,
+      "prob": 90.7
+    },
+    {
+      "winner": "Georgia",
+      "winner_seed": 8,
+      "loser": "UMBC",
+      "loser_seed": 16,
+      "prob": 86.6
+    },
+    {
+      "winner": "Michigan",
+      "winner_seed": 1,
+      "loser": "Saint Louis",
+      "loser_seed": 9,
+      "prob": 89.5
+    },
+    {
+      "winner": "Michigan",
+      "winner_seed": 1,
+      "loser": "Akron",
+      "loser_seed": 12,
+      "prob": 89.2
+    },
+    {
+      "winner": "Tennessee",
+      "winner_seed": 6,
+      "loser": "Hofstra",
+      "loser_seed": 13,
+      "prob": 82.9
+    },
+    {
+      "winner": "SMU",
+      "winner_seed": 11,
+      "loser": "Miami OH",
+      "loser_seed": 11,
+      "prob": 73.0
+    },
+    {
+      "winner": "Virginia",
+      "winner_seed": 3,
+      "loser": "Wright St.",
+      "loser_seed": 14,
+      "prob": 89.0
+    },
+    {
+      "winner": "Santa Clara",
+      "winner_seed": 10,
+      "loser": "Kentucky",
+      "loser_seed": 7,
+      "prob": 62.7
+    },
+    {
+      "winner": "Iowa St.",
+      "winner_seed": 2,
+      "loser": "Tennessee St.",
+      "loser_seed": 15,
+      "prob": 89.8
+    }
+  ],
+  "Round of 32": [
+    {
+      "winner": "Duke",
+      "winner_seed": 1,
+      "loser": "Ohio St.",
+      "loser_seed": 8,
+      "prob": 87.2
+    },
+    {
+      "winner": "Michigan St.",
+      "winner_seed": 3,
+      "loser": "Louisville",
+      "loser_seed": 6,
+      "prob": 60.5
+    },
+    {
+      "winner": "Connecticut",
+      "winner_seed": 2,
+      "loser": "UCLA",
+      "loser_seed": 7,
+      "prob": 75.2
+    },
+    {
+      "winner": "Florida",
+      "winner_seed": 1,
+      "loser": "Clemson",
+      "loser_seed": 8,
+      "prob": 84.5
+    },
+    {
+      "winner": "Illinois",
+      "winner_seed": 3,
+      "loser": "North Carolina",
+      "loser_seed": 6,
+      "prob": 83.8
+    },
+    {
+      "winner": "Houston",
+      "winner_seed": 2,
+      "loser": "Saint Mary's",
+      "loser_seed": 7,
+      "prob": 84.5
+    },
+    {
+      "winner": "Arizona",
+      "winner_seed": 1,
+      "loser": "Villanova",
+      "loser_seed": 8,
+      "prob": 86.2
+    },
+    {
+      "winner": "BYU",
+      "winner_seed": 6,
+      "loser": "North Carolina St.",
+      "loser_seed": 11,
+      "prob": 59.4
+    },
+    {
+      "winner": "Gonzaga",
+      "winner_seed": 3,
+      "loser": "Miami FL",
+      "loser_seed": 7,
+      "prob": 68.2
+    },
+    {
+      "winner": "Michigan",
+      "winner_seed": 1,
+      "loser": "Purdue",
+      "loser_seed": 2,
+      "prob": 63.8
+    },
+    {
+      "winner": "Michigan",
+      "winner_seed": 1,
+      "loser": "Georgia",
+      "loser_seed": 8,
+      "prob": 87.5
+    },
+    {
+      "winner": "Michigan",
+      "winner_seed": 1,
+      "loser": "Tennessee",
+      "loser_seed": 6,
+      "prob": 83.7
+    },
+    {
+      "winner": "Virginia",
+      "winner_seed": 3,
+      "loser": "SMU",
+      "loser_seed": 11,
+      "prob": 80.6
+    },
+    {
+      "winner": "Iowa St.",
+      "winner_seed": 2,
+      "loser": "Santa Clara",
+      "loser_seed": 10,
+      "prob": 68.4
+    }
+  ],
+  "Sweet 16": [
+    {
+      "winner": "Connecticut",
+      "winner_seed": 2,
+      "loser": "Michigan St.",
+      "loser_seed": 3,
+      "prob": 62.1
+    },
+    {
+      "winner": "Houston",
+      "winner_seed": 2,
+      "loser": "Illinois",
+      "loser_seed": 3,
+      "prob": 63.2
+    },
+    {
+      "winner": "Gonzaga",
+      "winner_seed": 3,
+      "loser": "BYU",
+      "loser_seed": 6,
+      "prob": 66.9
+    },
+    {
+      "winner": "Michigan",
+      "winner_seed": 1,
+      "loser": "Virginia",
+      "loser_seed": 3,
+      "prob": 78.6
+    }
+  ],
+  "Elite Eight": [
+    {
+      "winner": "Duke",
+      "winner_seed": 1,
+      "loser": "Connecticut",
+      "loser_seed": 2,
+      "prob": 76.5
+    },
+    {
+      "winner": "Houston",
+      "winner_seed": 2,
+      "loser": "Florida",
+      "loser_seed": 1,
+      "prob": 65.3
+    },
+    {
+      "winner": "Arizona",
+      "winner_seed": 1,
+      "loser": "Gonzaga",
+      "loser_seed": 3,
+      "prob": 79.7
+    }
+  ],
+  "Final Four": [
+    {
+      "winner": "Duke",
+      "winner_seed": 1,
+      "loser": "Houston",
+      "loser_seed": 2,
+      "prob": 59.8
+    },
+    {
+      "winner": "Michigan",
+      "winner_seed": 1,
+      "loser": "Arizona",
+      "loser_seed": 1,
+      "prob": 58.2
+    }
+  ],
+  "Championship": [
+    {
+      "winner": "Duke",
+      "winner_seed": 1,
+      "loser": "Michigan",
+      "loser_seed": 1,
+      "prob": 57.0
+    }
+  ]
+}
