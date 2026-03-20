@@ -42,194 +42,84 @@
     margin-bottom: 0.5rem;
   }
 
-  .subtitle {
-    color: var(--text-dim);
-    margin-bottom: 2rem;
-    font-size: 0.9rem;
+  .subtitle { color: var(--text-dim); margin-bottom: 0.25rem; font-size: 0.9rem; }
+  .updated { color: var(--text-dim); margin-bottom: 2rem; font-size: 0.8rem; }
+  .updated button {
+    background: var(--accent2); color: white; border: none; padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem; cursor: pointer; font-size: 0.8rem; margin-left: 0.5rem;
   }
+  .updated button:hover { opacity: 0.8; }
 
-  .scorecard {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
+  .scorecard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
   @media (max-width: 600px) { .scorecard { grid-template-columns: repeat(2, 1fr); } }
 
   .stat-card {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 0.75rem;
-    padding: 1.25rem;
-    text-align: center;
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 0.75rem; padding: 1.25rem; text-align: center;
   }
-
-  .stat-card .label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-dim);
-    margin-bottom: 0.25rem;
-  }
-
-  .stat-card .value {
-    font-size: 2rem;
-    font-weight: 800;
-  }
-
-  .stat-card .detail {
-    font-size: 0.8rem;
-    color: var(--text-dim);
-    margin-top: 0.25rem;
-  }
-
+  .stat-card .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 0.25rem; }
+  .stat-card .value { font-size: 2rem; font-weight: 800; }
+  .stat-card .detail { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.25rem; }
   .correct .value { color: var(--correct); }
   .wrong .value { color: var(--wrong); }
   .pending-stat .value { color: var(--pending); }
 
   .round-section {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;
   }
-
-  .round-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-
-  .round-header h2 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--accent2);
-  }
-
-  .round-record {
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 0.25rem 0.75rem;
-    border-radius: 1rem;
-    background: rgba(255,255,255,0.05);
-  }
+  .round-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .round-header h2 { font-size: 1.1rem; font-weight: 700; color: var(--accent2); }
+  .round-record { font-size: 0.85rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 1rem; background: rgba(255,255,255,0.05); }
 
   .game {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 0.75rem;
-    margin: 0.3rem 0;
-    border-radius: 0.5rem;
-    background: rgba(255,255,255,0.02);
-    gap: 0.5rem;
-    font-size: 0.85rem;
+    display: flex; align-items: center; padding: 0.5rem 0.75rem; margin: 0.3rem 0;
+    border-radius: 0.5rem; background: rgba(255,255,255,0.02); gap: 0.5rem; font-size: 0.85rem;
   }
-
   .game:hover { background: rgba(255,255,255,0.05); }
 
   .game .status {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    flex-shrink: 0;
+    width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
   }
-
   .status-correct { background: rgba(16,185,129,0.2); color: var(--correct); }
   .status-wrong { background: rgba(239,68,68,0.2); color: var(--wrong); }
   .status-pending { background: rgba(100,116,139,0.2); color: var(--pending); }
+  .status-live { background: rgba(249,115,22,0.2); color: var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-  .game .pick {
-    flex: 1;
-  }
-
+  .game .pick { flex: 1; }
   .game .pick .winner-name { font-weight: 600; }
   .game .pick .matchup-detail { color: var(--text-dim); font-size: 0.8rem; }
 
   .game .prob {
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.15rem 0.5rem;
-    border-radius: 1rem;
-    font-variant-numeric: tabular-nums;
-    flex-shrink: 0;
+    font-size: 0.8rem; font-weight: 600; padding: 0.15rem 0.5rem;
+    border-radius: 1rem; font-variant-numeric: tabular-nums; flex-shrink: 0;
   }
-
   .prob-high { background: rgba(16,185,129,0.15); color: var(--correct); }
   .prob-mid { background: rgba(245,158,11,0.15); color: #f59e0b; }
   .prob-low { background: rgba(239,68,68,0.15); color: var(--wrong); }
 
-  .game .actual {
-    font-size: 0.8rem;
-    font-weight: 600;
-    flex-shrink: 0;
-    min-width: 80px;
-    text-align: right;
-  }
-
+  .game .actual { font-size: 0.8rem; font-weight: 600; flex-shrink: 0; min-width: 100px; text-align: right; }
   .actual-correct { color: var(--correct); }
   .actual-wrong { color: var(--wrong); }
   .actual-pending { color: var(--pending); }
-
-  .upset-alert {
-    background: rgba(239,68,68,0.1);
-    border: 1px solid rgba(239,68,68,0.3);
-    border-radius: 0.5rem;
-    padding: 0.75rem 1rem;
-    margin: 0.5rem 0;
-    font-size: 0.85rem;
-    color: var(--wrong);
-  }
+  .actual-live { color: var(--accent); }
 
   .footer {
-    text-align: center;
-    padding: 2rem 0;
-    color: var(--text-dim);
-    font-size: 0.8rem;
+    text-align: center; padding: 2rem 0; color: var(--text-dim); font-size: 0.8rem;
   }
-
   .footer a { color: var(--accent2); text-decoration: none; }
-
-  .instructions {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    font-size: 0.85rem;
-    line-height: 1.8;
-  }
-
-  .instructions h3 { color: var(--accent2); margin-bottom: 0.5rem; }
-  .instructions code {
-    background: rgba(255,255,255,0.1);
-    padding: 0.15rem 0.4rem;
-    border-radius: 0.25rem;
-    font-size: 0.8rem;
-  }
 </style>
 </head>
 <body>
 
 <h1>March Madness 2026 Model Tracker</h1>
-<p class="subtitle">ML predictions vs actual results, updated in real time</p>
+<p class="subtitle">ML predictions vs actual results, auto-updated from ESPN</p>
+<p class="updated">Last updated: <span id="lastUpdated">loading...</span> <button onclick="fetchResults()">Refresh</button></p>
 
 <div class="scorecard" id="scorecard"></div>
-
 <div id="rounds"></div>
-
-<div class="instructions">
-  <h3>How to Update</h3>
-  <p>Edit the <code>ACTUAL_RESULTS</code> object in this file. For each game, add the actual winner's name. The tracker recalculates everything automatically.</p>
-  <p>Format: <code>"Round of 64": { "0": "Duke", "1": "Ohio St.", ... }</code> where the number is the game index (shown in each row).</p>
-</div>
 
 <div class="footer">
   Model: Stacked Ensemble (LR + GB + RF + HGB) | 73.6% holdout accuracy | 10,000 simulations<br>
@@ -240,7 +130,7 @@
 
 <script>
 // ════════════════════════════════════════════════════════════════════
-// MODEL PREDICTIONS (from Colab run)
+// MODEL PREDICTIONS (from Colab run with corrected bracket)
 // ════════════════════════════════════════════════════════════════════
 const PREDICTIONS = {
   "Round of 64": [
@@ -321,51 +211,150 @@ const PREDICTIONS = {
 };
 
 // ════════════════════════════════════════════════════════════════════
-// ACTUAL RESULTS - UPDATE THIS AS GAMES ARE PLAYED
-// Format: { "Round of 64": { 0: "Duke", 1: "TCU", ... }, ... }
-// Use the game index (shown as #N in each row) and the winning team name
+// ESPN API AUTO-FETCH
 // ════════════════════════════════════════════════════════════════════
-const ACTUAL_RESULTS = {
-  "Round of 64": {
-    0: "Duke",           // (1) Duke 71, (16) Siena 65
-    1: "TCU",            // (9) TCU 66, (8) Ohio St. 64 — UPSET
-    // 2: "",            // (5) St. John's vs (12) Northern Iowa
-    // 3: "",            // (4) Kansas vs (13) Cal Baptist
-    4: "Louisville",     // (6) Louisville 83, (11) South Florida 79
-    // 5: "",            // (3) Michigan St. vs (14) North Dakota St.
-    // 6: "",            // (7) UCLA vs (10) UCF
-    // 7: "",            // (2) Connecticut vs (15) Furman
-    // 8: "",            // (1) Florida vs (16) Prairie View A&M
-    // 9: "",            // (9) Iowa vs (8) Clemson
-    10: "Vanderbilt",    // (5) Vanderbilt 78, (12) McNeese St. 68
-    11: "Nebraska",      // (4) Nebraska 76, (13) Troy 47
-    // 12: "",           // (6) North Carolina vs (11) VCU
-    // 13: "",           // (3) Illinois vs (14) Penn
-    // 14: "",           // (7) Saint Mary's vs (10) Texas A&M
-    // 15: "",           // (2) Houston vs (15) Idaho
-    // 16: "",           // (1) Arizona vs (16) LIU Brooklyn
-    // 17: "",           // (8) Villanova vs (9) Utah St.
-    18: "High Point",    // (12) High Point 83, (5) Wisconsin 82 — UPSET
-    // 19: "",           // (4) Arkansas vs (13) Hawaii
-    // 20: "",           // (6) BYU vs (11) Texas
-    // 21: "",           // (3) Gonzaga vs (14) Kennesaw St.
-    // 22: "",           // (7) Miami FL vs (10) Missouri
-    // 23: "",           // (2) Purdue vs (15) Queens
-    // 24: "",           // (1) Michigan vs (16) Howard
-    // 25: "",           // (8) Georgia vs (9) Saint Louis
-    // 26: "",           // (5) Texas Tech vs (12) Akron
-    // 27: "",           // (4) Alabama vs (13) Hofstra
-    // 28: "",           // (6) Tennessee vs (11) Miami OH
-    // 29: "",           // (3) Virginia vs (14) Wright St.
-    // 30: "",           // (10) Santa Clara vs (7) Kentucky
-    // 31: "",           // (2) Iowa St. vs (15) Tennessee St.
-  },
+
+// Name mapping: ESPN shortDisplayName -> model team name
+const NAME_MAP = {
+  "Michigan St": "Michigan St.",
+  "Ohio State": "Ohio St.",
+  "Iowa State": "Iowa St.",
+  "N Dakota St": "North Dakota St.",
+  "North Dakota State": "North Dakota St.",
+  "NC State": "North Carolina St.",
+  "McNeese": "McNeese St.",
+  "Kennesaw St": "Kennesaw St.",
+  "Kennesaw State": "Kennesaw St.",
+  "Wright State": "Wright St.",
+  "Wright St": "Wright St.",
+  "Utah State": "Utah St.",
+  "Utah St": "Utah St.",
+  "Tennessee State": "Tennessee St.",
+  "Tennessee St": "Tennessee St.",
+  "LIU": "LIU Brooklyn",
+  "Long Island": "LIU Brooklyn",
+  "Saint Mary's (CA)": "Saint Mary's",
+  "Prairie View": "Prairie View A&M",
+  "Prairie View A&M": "Prairie View A&M",
+  "UConn": "Connecticut",
+  "Miami (OH)": "Miami OH",
+  "Miami OH": "Miami OH",
+  "Miami (FL)": "Miami FL",
+  "Miami FL": "Miami FL",
+  "St. John's (NY)": "St. John's",
+  "Hawai'i": "Hawaii",
+  "Cal Baptist": "Cal Baptist",
+  "N Iowa": "Northern Iowa",
+  "Northern Iowa": "Northern Iowa",
+};
+
+function normalizeTeamName(espnName) {
+  return NAME_MAP[espnName] || espnName;
+}
+
+// Tournament dates (R64 Thu/Fri, R32 Sat/Sun, S16, E8, F4, Championship)
+const TOURNAMENT_DATES = [
+  "20260319", "20260320",  // Round of 64
+  "20260321", "20260322",  // Round of 32
+  "20260327", "20260328",  // Sweet 16
+  "20260329",              // Elite Eight (Fri)
+  "20260330",              // Elite Eight (Sat) -- placeholder
+  "20260404",              // Final Four
+  "20260406",              // Championship
+];
+
+let ACTUAL_RESULTS = {
+  "Round of 64": {},
   "Round of 32": {},
   "Sweet 16": {},
   "Elite Eight": {},
   "Final Four": {},
   "Championship": {}
 };
+
+let LIVE_GAMES = {}; // track in-progress games
+
+async function fetchResults() {
+  document.getElementById('lastUpdated').textContent = 'fetching...';
+
+  // Build lookup: for each prediction, map the two team names to {round, index}
+  const matchupLookup = {};
+  const ROUND_ORDER = ["Round of 64", "Round of 32", "Sweet 16", "Elite Eight", "Final Four", "Championship"];
+  ROUND_ORDER.forEach(rnd => {
+    (PREDICTIONS[rnd] || []).forEach((g, i) => {
+      const key1 = rnd + "|" + g.winner;
+      const key2 = rnd + "|" + g.loser;
+      matchupLookup[key1] = { round: rnd, index: i };
+      matchupLookup[key2] = { round: rnd, index: i };
+    });
+  });
+
+  // Map ESPN round names to our round names
+  const espnRoundMap = {
+    1: "Round of 64",    // First Round
+    2: "Round of 32",    // Second Round
+    3: "Sweet 16",
+    4: "Elite Eight",
+    5: "Final Four",
+    6: "Championship",
+  };
+
+  LIVE_GAMES = {};
+
+  for (const dateStr of TOURNAMENT_DATES) {
+    try {
+      const url = `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=${dateStr}&groups=100&limit=50`;
+      const resp = await fetch(url);
+      const data = await resp.json();
+
+      for (const event of (data.events || [])) {
+        const comp = event.competitions[0];
+        const status = event.status.type.description; // "Final", "In Progress", "Scheduled"
+        const statusDetail = event.status.type.shortDetail || "";
+
+        // Find winner and loser
+        const teams = comp.competitors.map(c => ({
+          name: normalizeTeamName(c.team.shortDisplayName),
+          seed: c.curatedRank?.current || 0,
+          score: parseInt(c.score) || 0,
+          winner: c.winner
+        }));
+
+        const winner = teams.find(t => t.winner);
+        const loser = teams.find(t => !t.winner);
+
+        if (!winner || !loser) continue;
+
+        // Try to match against predictions
+        // Check all rounds since the ESPN API doesn't always label rounds clearly
+        for (const rnd of ROUND_ORDER) {
+          const preds = PREDICTIONS[rnd] || [];
+          for (let i = 0; i < preds.length; i++) {
+            const g = preds[i];
+            const teamsInGame = [winner.name, loser.name].sort().join("|");
+            const teamsInPred = [g.winner, g.loser].sort().join("|");
+
+            if (teamsInGame === teamsInPred) {
+              if (status === "Final" || status === "Final/OT" || status.startsWith("Final")) {
+                ACTUAL_RESULTS[rnd][i] = winner.name;
+              } else if (status === "In Progress") {
+                LIVE_GAMES[rnd + "|" + i] = {
+                  score: `${winner.name} ${winner.score}, ${loser.name} ${loser.score}`,
+                  detail: statusDetail
+                };
+              }
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.log("Error fetching " + dateStr + ": " + e.message);
+    }
+  }
+
+  document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+  render();
+}
 
 // ════════════════════════════════════════════════════════════════════
 // RENDER
@@ -374,113 +363,123 @@ const ACTUAL_RESULTS = {
 const ROUND_ORDER = ["Round of 64", "Round of 32", "Sweet 16", "Elite Eight", "Final Four", "Championship"];
 const ROUND_POINTS = {"Round of 64": 1, "Round of 32": 2, "Sweet 16": 4, "Elite Eight": 8, "Final Four": 16, "Championship": 32};
 
-let totalCorrect = 0, totalWrong = 0, totalPending = 0, totalPoints = 0, maxPoints = 0;
-const roundStats = {};
+function render() {
+  let totalCorrect = 0, totalWrong = 0, totalPending = 0, totalPoints = 0, maxPoints = 0;
+  const roundStats = {};
 
-ROUND_ORDER.forEach(rnd => {
-  const games = PREDICTIONS[rnd] || [];
-  const actuals = ACTUAL_RESULTS[rnd] || {};
-  let correct = 0, wrong = 0, pending = 0;
+  ROUND_ORDER.forEach(rnd => {
+    const games = PREDICTIONS[rnd] || [];
+    const actuals = ACTUAL_RESULTS[rnd] || {};
+    let correct = 0, wrong = 0, pending = 0;
 
-  games.forEach((g, i) => {
-    const actual = actuals[i];
-    if (actual === undefined || actual === null) {
-      pending++;
-    } else if (actual === g.winner) {
-      correct++;
-      totalPoints += ROUND_POINTS[rnd];
-    } else {
-      wrong++;
-    }
-    maxPoints += ROUND_POINTS[rnd];
+    games.forEach((g, i) => {
+      const actual = actuals[i];
+      if (actual === undefined || actual === null) {
+        pending++;
+      } else if (actual === g.winner) {
+        correct++;
+        totalPoints += ROUND_POINTS[rnd];
+      } else {
+        wrong++;
+      }
+      maxPoints += ROUND_POINTS[rnd];
+    });
+
+    totalCorrect += correct;
+    totalWrong += wrong;
+    totalPending += pending;
+    roundStats[rnd] = { correct, wrong, pending, total: games.length };
   });
 
-  totalCorrect += correct;
-  totalWrong += wrong;
-  totalPending += pending;
-  roundStats[rnd] = { correct, wrong, pending, total: games.length };
-});
+  const totalPlayed = totalCorrect + totalWrong;
+  const pct = totalPlayed > 0 ? (totalCorrect / totalPlayed * 100).toFixed(1) : "---";
+  document.getElementById('scorecard').innerHTML = `
+    <div class="stat-card correct">
+      <div class="label">Correct</div>
+      <div class="value">${totalCorrect}</div>
+      <div class="detail">${pct}% accuracy</div>
+    </div>
+    <div class="stat-card wrong">
+      <div class="label">Wrong</div>
+      <div class="value">${totalWrong}</div>
+      <div class="detail">${totalPlayed} decided</div>
+    </div>
+    <div class="stat-card pending-stat">
+      <div class="label">Pending</div>
+      <div class="value">${totalPending}</div>
+      <div class="detail">of ${totalCorrect + totalWrong + totalPending} total</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Points</div>
+      <div class="value" style="color: var(--accent)">${totalPoints}</div>
+      <div class="detail">of ${maxPoints} possible</div>
+    </div>
+  `;
 
-// Scorecard
-const totalPlayed = totalCorrect + totalWrong;
-const pct = totalPlayed > 0 ? (totalCorrect / totalPlayed * 100).toFixed(1) : "---";
-document.getElementById('scorecard').innerHTML = `
-  <div class="stat-card correct">
-    <div class="label">Correct</div>
-    <div class="value">${totalCorrect}</div>
-    <div class="detail">${pct}% accuracy</div>
-  </div>
-  <div class="stat-card wrong">
-    <div class="label">Wrong</div>
-    <div class="value">${totalWrong}</div>
-    <div class="detail">${totalPlayed} decided</div>
-  </div>
-  <div class="stat-card pending-stat">
-    <div class="label">Pending</div>
-    <div class="value">${totalPending}</div>
-    <div class="detail">of ${totalCorrect + totalWrong + totalPending} total</div>
-  </div>
-  <div class="stat-card">
-    <div class="label">Points</div>
-    <div class="value" style="color: var(--accent)">${totalPoints}</div>
-    <div class="detail">of ${maxPoints} possible</div>
-  </div>
-`;
+  let roundsHTML = '';
+  ROUND_ORDER.forEach(rnd => {
+    const games = PREDICTIONS[rnd] || [];
+    const actuals = ACTUAL_RESULTS[rnd] || {};
+    const stats = roundStats[rnd];
+    const played = stats.correct + stats.wrong;
+    const record = played > 0 ? `${stats.correct}-${stats.wrong}` : `0/${stats.total} played`;
 
-// Rounds
-let roundsHTML = '';
-ROUND_ORDER.forEach(rnd => {
-  const games = PREDICTIONS[rnd] || [];
-  const actuals = ACTUAL_RESULTS[rnd] || {};
-  const stats = roundStats[rnd];
-  const played = stats.correct + stats.wrong;
-  const record = played > 0 ? `${stats.correct}-${stats.wrong}` : `0/${stats.total} played`;
+    roundsHTML += `<div class="round-section">
+      <div class="round-header">
+        <h2>${rnd} (${ROUND_POINTS[rnd]}pt${ROUND_POINTS[rnd] > 1 ? 's' : ''} each)</h2>
+        <span class="round-record">${record}</span>
+      </div>`;
 
-  roundsHTML += `<div class="round-section">
-    <div class="round-header">
-      <h2>${rnd} (${ROUND_POINTS[rnd]}pt${ROUND_POINTS[rnd] > 1 ? 's' : ''} each)</h2>
-      <span class="round-record">${record}</span>
-    </div>`;
+    games.forEach((g, i) => {
+      const actual = actuals[i];
+      const liveKey = rnd + "|" + i;
+      const liveGame = LIVE_GAMES[liveKey];
+      let statusClass, statusIcon, actualText, actualClass;
 
-  games.forEach((g, i) => {
-    const actual = actuals[i];
-    let statusClass, statusIcon, actualText, actualClass;
+      if (liveGame) {
+        statusClass = 'status-live';
+        statusIcon = '\u25B6';
+        actualText = liveGame.score;
+        actualClass = 'actual-live';
+      } else if (actual === undefined || actual === null) {
+        statusClass = 'status-pending';
+        statusIcon = '?';
+        actualText = 'Pending';
+        actualClass = 'actual-pending';
+      } else if (actual === g.winner) {
+        statusClass = 'status-correct';
+        statusIcon = '\u2713';
+        actualText = '\u2713 Correct';
+        actualClass = 'actual-correct';
+      } else {
+        statusClass = 'status-wrong';
+        statusIcon = '\u2717';
+        actualText = '\u2717 ' + actual;
+        actualClass = 'actual-wrong';
+      }
 
-    if (actual === undefined || actual === null) {
-      statusClass = 'status-pending';
-      statusIcon = '?';
-      actualText = 'Pending';
-      actualClass = 'actual-pending';
-    } else if (actual === g.winner) {
-      statusClass = 'status-correct';
-      statusIcon = '\u2713';
-      actualText = '\u2713 Correct';
-      actualClass = 'actual-correct';
-    } else {
-      statusClass = 'status-wrong';
-      statusIcon = '\u2717';
-      actualText = `\u2717 ${actual}`;
-      actualClass = 'actual-wrong';
-    }
+      const probClass = g.prob >= 80 ? 'prob-high' : (g.prob >= 65 ? 'prob-mid' : 'prob-low');
 
-    const probClass = g.prob >= 80 ? 'prob-high' : (g.prob >= 65 ? 'prob-mid' : 'prob-low');
+      roundsHTML += `<div class="game">
+        <span class="status ${statusClass}">${statusIcon}</span>
+        <div class="pick">
+          <span class="winner-name">(${g.winner_seed}) ${g.winner}</span>
+          <span class="matchup-detail"> over (${g.loser_seed}) ${g.loser}</span>
+        </div>
+        <span class="prob ${probClass}">${g.prob}%</span>
+        <span class="actual ${actualClass}">${actualText}</span>
+      </div>`;
+    });
 
-    roundsHTML += `<div class="game">
-      <span class="status ${statusClass}">${statusIcon}</span>
-      <span style="color:var(--text-dim);font-size:0.75rem;width:24px">#${i}</span>
-      <div class="pick">
-        <span class="winner-name">(${g.winner_seed}) ${g.winner}</span>
-        <span class="matchup-detail"> over (${g.loser_seed}) ${g.loser}</span>
-      </div>
-      <span class="prob ${probClass}">${g.prob}%</span>
-      <span class="actual ${actualClass}">${actualText}</span>
-    </div>`;
+    roundsHTML += '</div>';
   });
 
-  roundsHTML += '</div>';
-});
+  document.getElementById('rounds').innerHTML = roundsHTML;
+}
 
-document.getElementById('rounds').innerHTML = roundsHTML;
+// Auto-fetch on load and refresh every 2 minutes during games
+fetchResults();
+setInterval(fetchResults, 120000);
 </script>
 
 </body>
