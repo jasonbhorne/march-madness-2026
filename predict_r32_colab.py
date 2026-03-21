@@ -974,31 +974,34 @@ def generate_updated_html(r64_locked, predicted_results, champion, advancement,
   </div>
 """
 
+    # Pre-build odds HTML to avoid f-string + generator indentation issues
+    champ_rows = ""
+    for o in champ_odds:
+        bar_w = min(o['pct'] / champ_odds[0]['pct'] * 100, 100) if champ_odds else 0
+        champ_rows += f'<div class="odds-row"><span class="odds-seed">{o["seed"]}</span><span class="odds-team">{o["team"]}</span><span class="odds-pct">{o["pct"]}%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:{bar_w}%"></div></div></div>\n'
+
+    f4_rows = ""
+    for o in f4_odds:
+        bar_w = min(o['pct'] / f4_odds[0]['pct'] * 100, 100) if f4_odds else 0
+        f4_rows += f'<div class="odds-row"><span class="odds-seed">{o["seed"]}</span><span class="odds-team">{o["team"]}</span><span class="odds-pct">{o["pct"]}%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:{bar_w}%"></div></div></div>\n'
+
+    champ_pct = round(champion_counts.get(champion['name'], 0) / n_sims * 100, 1)
+
     html += f"""
   <div class="champion-card">
     <div class="label">Updated Predicted Champion</div>
     <div class="team">{champion['name']}</div>
-    <div class="seed">#{champion['seed']} Seed &middot; {round(champion_counts.get(champion['name'], 0) / n_sims * 100, 1)}% probability</div>
+    <div class="seed">#{champion['seed']} Seed &middot; {champ_pct}% probability</div>
   </div>
 
   <div class="odds-grid">
     <div class="odds-card">
       <h3>Championship Odds (Updated)</h3>
-      {''.join(f"""<div class="odds-row">
-        <span class="odds-seed">{o['seed']}</span>
-        <span class="odds-team">{o['team']}</span>
-        <span class="odds-pct">{o['pct']}%</span>
-        <div class="odds-bar-wrap"><div class="odds-bar champ" style="width:{min(o['pct'] / champ_odds[0]['pct'] * 100, 100) if champ_odds else 0}%"></div></div>
-      </div>""" for o in champ_odds)}
+      {champ_rows}
     </div>
     <div class="odds-card">
       <h3>Final Four Odds (Updated)</h3>
-      {''.join(f"""<div class="odds-row">
-        <span class="odds-seed">{o['seed']}</span>
-        <span class="odds-team">{o['team']}</span>
-        <span class="odds-pct">{o['pct']}%</span>
-        <div class="odds-bar-wrap"><div class="odds-bar f4" style="width:{min(o['pct'] / f4_odds[0]['pct'] * 100, 100) if f4_odds else 0}%"></div></div>
-      </div>""" for o in f4_odds)}
+      {f4_rows}
     </div>
   </div>
 
