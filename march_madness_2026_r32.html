@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>March Madness 2026 - Updated Bracket (Round of 32)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #0a0e17;
+    --card: #131a2b;
+    --card-border: #1e2a42;
+    --accent: #f97316;
+    --accent2: #3b82f6;
+    --accent3: #10b981;
+    --text: #e2e8f0;
+    --text-dim: #64748b;
+    --winner: #f97316;
+    --prob-high: #10b981;
+    --prob-mid: #f59e0b;
+    --prob-low: #ef4444;
+    --actual-bg: rgba(16, 185, 129, 0.08);
+    --actual-border: rgba(16, 185, 129, 0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+    background: linear-gradient(135deg, #0a0e17 0%, #1a1040 50%, #0a0e17 100%);
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .hero h1 {
+    font-size: 3rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero .subtitle { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 1.5rem; }
+
+  .hero .model-badge {
+    display: inline-block; background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 2rem; padding: 0.5rem 1.5rem; font-size: 0.85rem; color: var(--accent3);
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+  .update-banner {
+    background: var(--actual-bg); border: 1px solid var(--actual-border);
+    border-radius: 0.75rem; padding: 1rem 1.5rem; margin: 1.5rem 0;
+    font-size: 0.9rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .update-banner .icon { font-size: 1.2rem; }
+
+  .section-title {
+    font-size: 1.5rem; font-weight: 800; margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent); display: inline-block;
+  }
+
+  .champion-card {
+    background: linear-gradient(135deg, #1a0f00 0%, #2a1800 100%);
+    border: 2px solid var(--accent); border-radius: 1rem;
+    padding: 2rem; text-align: center; margin: 2rem 0;
+    position: relative; overflow: hidden;
+  }
+  .champion-card::before {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(249,115,22,0.1) 0%, transparent 60%);
+  }
+  .champion-card .label {
+    font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em;
+    color: var(--accent); margin-bottom: 0.5rem;
+  }
+  .champion-card .team { font-size: 2.5rem; font-weight: 900; color: var(--accent); }
+  .champion-card .seed { font-size: 1rem; color: var(--text-dim); margin-top: 0.25rem; }
+
+  .odds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 1rem 0; }
+  @media (max-width: 768px) { .odds-grid { grid-template-columns: 1fr; } .hero h1 { font-size: 2rem; } }
+
+  .odds-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 0.75rem; padding: 1.5rem;
+  }
+  .odds-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent2); }
+
+  .odds-row { display: flex; align-items: center; padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .odds-row:last-child { border-bottom: none; }
+  .odds-seed { width: 2rem; font-size: 0.75rem; color: var(--text-dim); text-align: center; }
+  .odds-team { flex: 1; font-weight: 600; font-size: 0.9rem; }
+  .odds-pct { width: 3.5rem; text-align: right; font-weight: 700; font-size: 0.9rem; }
+  .odds-bar-wrap { width: 120px; height: 8px; background: rgba(255,255,255,0.05); border-radius: 4px; margin-left: 0.75rem; overflow: hidden; }
+  .odds-bar { height: 100%; border-radius: 4px; }
+  .odds-bar.champ { background: linear-gradient(90deg, var(--accent), #fb923c); }
+  .odds-bar.f4 { background: linear-gradient(90deg, var(--accent2), #60a5fa); }
+
+  .accuracy-card {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0;
+  }
+  .accuracy-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent2); }
+  .accuracy-row {
+    display: flex; align-items: center; padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .accuracy-row:last-child { border-bottom: none; }
+  .acc-round { flex: 1; font-weight: 600; }
+  .acc-score { width: 60px; text-align: center; color: var(--text-dim); }
+  .acc-pct { width: 60px; text-align: right; font-weight: 700; color: var(--accent3); }
+
+  .bracket-round {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0;
+  }
+  .bracket-round.actual-round {
+    border-color: var(--actual-border);
+    background: linear-gradient(135deg, var(--card) 0%, rgba(16, 185, 129, 0.04) 100%);
+  }
+  .bracket-round h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent2); }
+  .bracket-round h3 .badge {
+    display: inline-block; font-size: 0.7rem; font-weight: 600;
+    padding: 0.15rem 0.5rem; border-radius: 1rem; margin-left: 0.5rem; vertical-align: middle;
+  }
+  .badge-actual { background: rgba(16, 185, 129, 0.15); color: var(--accent3); }
+  .badge-predicted { background: rgba(59, 130, 246, 0.15); color: var(--accent2); }
+
+  .matchup {
+    display: flex; align-items: center; padding: 0.4rem 0.75rem;
+    margin: 0.25rem 0; border-radius: 0.5rem; background: rgba(255,255,255,0.02);
+  }
+  .matchup:hover { background: rgba(255,255,255,0.05); }
+  .matchup .winner { color: var(--winner); font-weight: 700; }
+  .matchup .loser { color: var(--text-dim); }
+  .matchup.actual-game {
+    background: var(--actual-bg); border-left: 3px solid var(--accent3);
+  }
+  .matchup .m-seed { width: 1.8rem; font-size: 0.75rem; text-align: center; }
+  .matchup .m-team { width: 180px; font-size: 0.85rem; }
+  .matchup .m-vs { width: 40px; text-align: center; font-size: 0.7rem; color: var(--text-dim); }
+  .matchup .m-prob {
+    font-size: 0.8rem; font-weight: 600; margin-left: auto;
+    padding: 0.15rem 0.5rem; border-radius: 1rem; font-variant-numeric: tabular-nums;
+  }
+  .matchup .m-actual {
+    font-size: 0.7rem; font-weight: 600; margin-left: auto;
+    padding: 0.15rem 0.5rem; border-radius: 1rem;
+    background: rgba(16, 185, 129, 0.15); color: var(--accent3);
+  }
+  .prob-high { background: rgba(16,185,129,0.15); color: var(--prob-high); }
+  .prob-mid { background: rgba(245,158,11,0.15); color: var(--prob-mid); }
+  .prob-low { background: rgba(239,68,68,0.15); color: var(--prob-low); }
+
+  .feat-row { display: flex; align-items: center; padding: 0.4rem 0; }
+  .feat-name { width: 200px; font-size: 0.85rem; font-weight: 500; }
+  .feat-bar-wrap {
+    flex: 1; height: 12px; background: rgba(255,255,255,0.05);
+    border-radius: 6px; overflow: hidden; margin: 0 1rem;
+  }
+  .feat-bar { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent3)); border-radius: 6px; }
+  .feat-val { width: 50px; text-align: right; font-size: 0.8rem; color: var(--text-dim); }
+
+  .methodology {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 0.75rem; padding: 2rem; margin: 2rem 0;
+    font-size: 0.9rem; line-height: 1.8;
+  }
+  .methodology h3 { color: var(--accent2); margin-bottom: 1rem; }
+  .methodology ul { padding-left: 1.5rem; margin: 0.5rem 0; }
+  .methodology li { margin: 0.3rem 0; }
+
+  .footer {
+    text-align: center; padding: 2rem; color: var(--text-dim); font-size: 0.8rem;
+    border-top: 1px solid var(--card-border); margin-top: 3rem;
+  }
+  .footer a { color: var(--accent2); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>March Madness 2026</h1>
+  <p class="subtitle">Updated Predictions: Round of 32</p>
+  <span class="model-badge">Stacked Ensemble &middot; 73.6% accuracy &middot; 10,000 simulations</span>
+</div>
+
+<div class="container">
+
+  <div class="update-banner">
+    <span class="icon">&#9989;</span>
+    <div>
+      <strong>Bracket updated with real results.</strong>
+      Completed: Round of 64. Remaining rounds are ML predictions recalculated from actual outcomes.
+    </div>
+  </div>
+
+  <div class="accuracy-card">
+    <h3>Model Accuracy vs Actual Results</h3>
+    
+    <div class="accuracy-row">
+      <span class="acc-round">Round of 64</span>
+      <span class="acc-score">22/30</span>
+      <span class="acc-pct">73.3%</span>
+    </div>
+  </div>
+
+  <div class="champion-card">
+    <div class="label">Updated Predicted Champion</div>
+    <div class="team">Duke</div>
+    <div class="seed">#1 Seed &middot; 27.3% probability</div>
+  </div>
+
+  <div class="odds-grid">
+    <div class="odds-card">
+      <h3>Championship Odds (Updated)</h3>
+      <div class="odds-row"><span class="odds-seed">1</span><span class="odds-team">Duke</span><span class="odds-pct">27.3%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:100.0%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">1</span><span class="odds-team">Michigan</span><span class="odds-pct">20.0%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:73.26007326007326%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">2</span><span class="odds-team">Houston</span><span class="odds-pct">13.5%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:49.450549450549445%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">1</span><span class="odds-team">Arizona</span><span class="odds-pct">12.4%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:45.42124542124542%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">2</span><span class="odds-team">Purdue</span><span class="odds-pct">7.1%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:26.007326007326004%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">3</span><span class="odds-team">Illinois</span><span class="odds-pct">4.3%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:15.75091575091575%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">1</span><span class="odds-team">Florida</span><span class="odds-pct">4.1%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:15.018315018315018%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">2</span><span class="odds-team">Connecticut</span><span class="odds-pct">2.8%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:10.256410256410255%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">2</span><span class="odds-team">Iowa St.</span><span class="odds-pct">2.2%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:8.058608058608058%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">4</span><span class="odds-team">Arkansas</span><span class="odds-pct">1.2%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:4.395604395604395%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">3</span><span class="odds-team">Virginia</span><span class="odds-pct">1.0%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:3.6630036630036633%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">5</span><span class="odds-team">St. John's</span><span class="odds-pct">0.7%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:2.564102564102564%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">3</span><span class="odds-team">Michigan St.</span><span class="odds-pct">0.6%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:2.1978021978021975%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">5</span><span class="odds-team">Vanderbilt</span><span class="odds-pct">0.6%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:2.1978021978021975%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">5</span><span class="odds-team">Texas Tech</span><span class="odds-pct">0.5%</span><div class="odds-bar-wrap"><div class="odds-bar champ" style="width:1.8315018315018317%"></div></div></div>
+
+    </div>
+    <div class="odds-card">
+      <h3>Final Four Odds (Updated)</h3>
+      <div class="odds-row"><span class="odds-seed">1</span><span class="odds-team">Duke</span><span class="odds-pct">60.7%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:100.0%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">1</span><span class="odds-team">Michigan</span><span class="odds-pct">56.1%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:92.42174629324546%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">1</span><span class="odds-team">Arizona</span><span class="odds-pct">44.8%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:73.80560131795716%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">2</span><span class="odds-team">Houston</span><span class="odds-pct">42.4%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:69.85172981878088%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">2</span><span class="odds-team">Purdue</span><span class="odds-pct">31.5%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:51.894563426688634%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">1</span><span class="odds-team">Florida</span><span class="odds-pct">23.7%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:39.04448105436573%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">3</span><span class="odds-team">Illinois</span><span class="odds-pct">22.6%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:37.23228995057661%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">2</span><span class="odds-team">Iowa St.</span><span class="odds-pct">18.3%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:30.14827018121911%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">2</span><span class="odds-team">Connecticut</span><span class="odds-pct">17.6%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:28.995057660626028%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">4</span><span class="odds-team">Arkansas</span><span class="odds-pct">13.5%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:22.240527182866558%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">3</span><span class="odds-team">Virginia</span><span class="odds-pct">9.5%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:15.650741350906095%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">3</span><span class="odds-team">Michigan St.</span><span class="odds-pct">7.7%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:12.685337726523887%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">3</span><span class="odds-team">Gonzaga</span><span class="odds-pct">7.1%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:11.696869851729817%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">5</span><span class="odds-team">St. John's</span><span class="odds-pct">6.6%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:10.87314662273476%"></div></div></div>
+<div class="odds-row"><span class="odds-seed">5</span><span class="odds-team">Vanderbilt</span><span class="odds-pct">6.6%</span><div class="odds-bar-wrap"><div class="odds-bar f4" style="width:10.87314662273476%"></div></div></div>
+
+    </div>
+  </div>
+
+  <div class="section-title">Bracket Results</div>
+  <div class="bracket-round actual-round"><h3>Round of 64 <span class="badge badge-actual">ACTUAL</span></h3>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Duke</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">16</span>
+      <span class="m-team loser">Siena</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">9</span>
+      <span class="m-team winner">TCU</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">8</span>
+      <span class="m-team loser">Ohio St.</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">5</span>
+      <span class="m-team winner">St. John's</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">12</span>
+      <span class="m-team loser">Northern Iowa</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">4</span>
+      <span class="m-team winner">Kansas</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">13</span>
+      <span class="m-team loser">Cal Baptist</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">6</span>
+      <span class="m-team winner">Louisville</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">11</span>
+      <span class="m-team loser">South Florida</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">3</span>
+      <span class="m-team winner">Michigan St.</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">14</span>
+      <span class="m-team loser">North Dakota St.</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">7</span>
+      <span class="m-team winner">UCLA</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">10</span>
+      <span class="m-team loser">UCF</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">2</span>
+      <span class="m-team winner">Connecticut</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">15</span>
+      <span class="m-team loser">Furman</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Florida</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">16</span>
+      <span class="m-team loser">Prairie View A&M</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">9</span>
+      <span class="m-team winner">Iowa</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">8</span>
+      <span class="m-team loser">Clemson</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">5</span>
+      <span class="m-team winner">Vanderbilt</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">12</span>
+      <span class="m-team loser">McNeese St.</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">4</span>
+      <span class="m-team winner">Nebraska</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">13</span>
+      <span class="m-team loser">Troy</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">11</span>
+      <span class="m-team winner">VCU</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">6</span>
+      <span class="m-team loser">North Carolina</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">3</span>
+      <span class="m-team winner">Illinois</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">14</span>
+      <span class="m-team loser">Penn</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">10</span>
+      <span class="m-team winner">Texas A&M</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">7</span>
+      <span class="m-team loser">Saint Mary's</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">2</span>
+      <span class="m-team winner">Houston</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">15</span>
+      <span class="m-team loser">Idaho</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Arizona</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">16</span>
+      <span class="m-team loser">LIU Brooklyn</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">9</span>
+      <span class="m-team winner">Utah St.</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">8</span>
+      <span class="m-team loser">Villanova</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">12</span>
+      <span class="m-team winner">High Point</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">5</span>
+      <span class="m-team loser">Wisconsin</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">4</span>
+      <span class="m-team winner">Arkansas</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">13</span>
+      <span class="m-team loser">Hawaii</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">11</span>
+      <span class="m-team winner">Texas</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">6</span>
+      <span class="m-team loser">BYU</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">3</span>
+      <span class="m-team winner">Gonzaga</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">14</span>
+      <span class="m-team loser">Kennesaw St.</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">7</span>
+      <span class="m-team winner">Miami FL</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">10</span>
+      <span class="m-team loser">Missouri</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">2</span>
+      <span class="m-team winner">Purdue</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">15</span>
+      <span class="m-team loser">Queens</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Michigan</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">16</span>
+      <span class="m-team loser">Howard</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">9</span>
+      <span class="m-team winner">Saint Louis</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">8</span>
+      <span class="m-team loser">Georgia</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">5</span>
+      <span class="m-team winner">Texas Tech</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">12</span>
+      <span class="m-team loser">Akron</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">4</span>
+      <span class="m-team winner">Alabama</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">13</span>
+      <span class="m-team loser">Hofstra</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">6</span>
+      <span class="m-team winner">Tennessee</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">11</span>
+      <span class="m-team loser">Miami OH</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">3</span>
+      <span class="m-team winner">Virginia</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">14</span>
+      <span class="m-team loser">Wright St.</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">7</span>
+      <span class="m-team winner">Kentucky</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">10</span>
+      <span class="m-team loser">Santa Clara</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+    <div class="matchup actual-game">
+      <span class="m-seed winner">2</span>
+      <span class="m-team winner">Iowa St.</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">15</span>
+      <span class="m-team loser">Tennessee St.</span>
+      <span class="m-actual">FINAL</span>
+    </div>
+  </div>
+  <div class="bracket-round"><h3>Round of 32 <span class="badge badge-predicted">PREDICTED</span></h3>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Duke</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">9</span>
+      <span class="m-team loser">TCU</span>
+      <span class="m-prob prob-high">89.4%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">5</span>
+      <span class="m-team winner">St. John's</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">4</span>
+      <span class="m-team loser">Kansas</span>
+      <span class="m-prob prob-mid">63.2%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">3</span>
+      <span class="m-team winner">Michigan St.</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">6</span>
+      <span class="m-team loser">Louisville</span>
+      <span class="m-prob prob-mid">60.5%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">2</span>
+      <span class="m-team winner">Connecticut</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">7</span>
+      <span class="m-team loser">UCLA</span>
+      <span class="m-prob prob-high">75.2%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Florida</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">9</span>
+      <span class="m-team loser">Iowa</span>
+      <span class="m-prob prob-high">83.2%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">5</span>
+      <span class="m-team winner">Vanderbilt</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">4</span>
+      <span class="m-team loser">Nebraska</span>
+      <span class="m-prob prob-mid">60.9%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">3</span>
+      <span class="m-team winner">Illinois</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">11</span>
+      <span class="m-team loser">VCU</span>
+      <span class="m-prob prob-high">86.7%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">2</span>
+      <span class="m-team winner">Houston</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">10</span>
+      <span class="m-team loser">Texas A&M</span>
+      <span class="m-prob prob-high">88.2%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Arizona</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">9</span>
+      <span class="m-team loser">Utah St.</span>
+      <span class="m-prob prob-high">86.7%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">4</span>
+      <span class="m-team winner">Arkansas</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">12</span>
+      <span class="m-team loser">High Point</span>
+      <span class="m-prob prob-high">88.1%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">3</span>
+      <span class="m-team winner">Gonzaga</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">11</span>
+      <span class="m-team loser">Texas</span>
+      <span class="m-prob prob-high">76.0%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">2</span>
+      <span class="m-team winner">Purdue</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">7</span>
+      <span class="m-team loser">Miami FL</span>
+      <span class="m-prob prob-high">82.0%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Michigan</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">9</span>
+      <span class="m-team loser">Saint Louis</span>
+      <span class="m-prob prob-high">89.6%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">5</span>
+      <span class="m-team winner">Texas Tech</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">4</span>
+      <span class="m-team loser">Alabama</span>
+      <span class="m-prob prob-low">56.1%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">3</span>
+      <span class="m-team winner">Virginia</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">6</span>
+      <span class="m-team loser">Tennessee</span>
+      <span class="m-prob prob-mid">62.9%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">2</span>
+      <span class="m-team winner">Iowa St.</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">7</span>
+      <span class="m-team loser">Kentucky</span>
+      <span class="m-prob prob-high">79.3%</span>
+    </div>
+  </div>
+  <div class="bracket-round"><h3>Sweet 16 <span class="badge badge-predicted">PREDICTED</span></h3>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Duke</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">5</span>
+      <span class="m-team loser">St. John's</span>
+      <span class="m-prob prob-high">83.1%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">2</span>
+      <span class="m-team winner">Connecticut</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">3</span>
+      <span class="m-team loser">Michigan St.</span>
+      <span class="m-prob prob-mid">62.1%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Florida</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">5</span>
+      <span class="m-team loser">Vanderbilt</span>
+      <span class="m-prob prob-mid">69.1%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">2</span>
+      <span class="m-team winner">Houston</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">3</span>
+      <span class="m-team loser">Illinois</span>
+      <span class="m-prob prob-mid">63.2%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Arizona</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">4</span>
+      <span class="m-team loser">Arkansas</span>
+      <span class="m-prob prob-mid">74.0%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">2</span>
+      <span class="m-team winner">Purdue</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">3</span>
+      <span class="m-team loser">Gonzaga</span>
+      <span class="m-prob prob-high">76.1%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Michigan</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">5</span>
+      <span class="m-team loser">Texas Tech</span>
+      <span class="m-prob prob-high">81.1%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">2</span>
+      <span class="m-team winner">Iowa St.</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">3</span>
+      <span class="m-team loser">Virginia</span>
+      <span class="m-prob prob-low">58.8%</span>
+    </div>
+  </div>
+  <div class="bracket-round"><h3>Elite Eight <span class="badge badge-predicted">PREDICTED</span></h3>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Duke</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">2</span>
+      <span class="m-team loser">Connecticut</span>
+      <span class="m-prob prob-high">76.5%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">2</span>
+      <span class="m-team winner">Houston</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">1</span>
+      <span class="m-team loser">Florida</span>
+      <span class="m-prob prob-mid">65.3%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Arizona</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">2</span>
+      <span class="m-team loser">Purdue</span>
+      <span class="m-prob prob-low">59.8%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Michigan</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">2</span>
+      <span class="m-team loser">Iowa St.</span>
+      <span class="m-prob prob-mid">73.2%</span>
+    </div>
+  </div>
+  <div class="bracket-round"><h3>Final Four <span class="badge badge-predicted">PREDICTED</span></h3>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Duke</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">2</span>
+      <span class="m-team loser">Houston</span>
+      <span class="m-prob prob-low">59.8%</span>
+    </div>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Michigan</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">1</span>
+      <span class="m-team loser">Arizona</span>
+      <span class="m-prob prob-low">58.2%</span>
+    </div>
+  </div>
+  <div class="bracket-round"><h3>Championship <span class="badge badge-predicted">PREDICTED</span></h3>
+    <div class="matchup">
+      <span class="m-seed winner">1</span>
+      <span class="m-team winner">Duke</span>
+      <span class="m-vs">over</span>
+      <span class="m-seed loser">1</span>
+      <span class="m-team loser">Michigan</span>
+      <span class="m-prob prob-low">57.0%</span>
+    </div>
+  </div>
+
+  <div class="section-title">What Matters Most</div>
+  <div class="bracket-round">
+    <h3>Top Features by Importance</h3>
+    <div class="feat-row">
+      <span class="feat-name">BADJ EM</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:100.0%"></div></div>
+      <span class="feat-val">18.57%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">OFF_DEF_RATIO</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:48.46526655896607%"></div></div>
+      <span class="feat-val">9.0%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">WAB</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:28.971459343026385%"></div></div>
+      <span class="feat-val">5.38%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">FOUR_FACTORS_D</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:25.040387722132472%"></div></div>
+      <span class="feat-val">4.65%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">AST%</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:17.77059773828756%"></div></div>
+      <span class="feat-val">3.3%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">FT%</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:17.55519655358104%"></div></div>
+      <span class="feat-val">3.26%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">TALENT</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:13.947226709746902%"></div></div>
+      <span class="feat-val">2.59%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">FTR</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:13.62412493268713%"></div></div>
+      <span class="feat-val">2.53%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">ELO</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:12.170166935918147%"></div></div>
+      <span class="feat-val">2.26%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">FOUR_FACTORS_O</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:11.470113085621971%"></div></div>
+      <span class="feat-val">2.13%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">BADJ D</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:11.362412493268712%"></div></div>
+      <span class="feat-val">2.11%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">WIN%</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:10.98546042003231%"></div></div>
+      <span class="feat-val">2.04%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">3PT%D</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:10.070005385029617%"></div></div>
+      <span class="feat-val">1.87%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">AVG HGT</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:9.96230479267636%"></div></div>
+      <span class="feat-val">1.85%</span>
+    </div>
+    <div class="feat-row">
+      <span class="feat-name">EFF HGT</span>
+      <div class="feat-bar-wrap"><div class="feat-bar" style="width:9.262250942380183%"></div></div>
+      <span class="feat-val">1.72%</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    Updated with actual Round of 64 results. Built with Python, scikit-learn, and too much coffee.<br>
+    <a href="https://jasonhorne.org">jasonhorne.org</a> &middot; March 2026
+  </div>
+
+</div>
+</body>
+</html>
