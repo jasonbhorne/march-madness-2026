@@ -1,5 +1,47 @@
 {
-  "last_updated": "2026-03-20",
-  "completed_rounds": [],
-  "actual_results": {}
+  "last_updated": "2026-04-05",
+  "completed_rounds": ["Round of 64", "Round of 32", "Sweet 16", "Elite Eight", "Final Four"],
+  "actual_results": {
+    "Sweet 16": [
+      {"winner": "Duke", "winner_seed": 1, "loser": "St. John's", "loser_seed": 5, "score": "80-75", "model_pick": "Duke", "model_confidence": 83.1, "correct": true},
+      {"winner": "UConn", "winner_seed": 2, "loser": "Michigan State", "loser_seed": 3, "score": "67-63", "model_pick": "UConn", "model_confidence": 62.1, "correct": true},
+      {"winner": "Iowa", "winner_seed": 9, "loser": "Nebraska", "loser_seed": 4, "score": "77-71", "model_pick": "Nebraska", "model_confidence": 63.0, "correct": false},
+      {"winner": "Illinois", "winner_seed": 3, "loser": "Houston", "loser_seed": 2, "score": "65-55", "model_pick": "Houston", "model_confidence": 63.2, "correct": false},
+      {"winner": "Purdue", "winner_seed": 2, "loser": "Texas", "loser_seed": 11, "score": "79-77", "model_pick": "Purdue", "model_confidence": 78.0, "correct": true},
+      {"winner": "Arizona", "winner_seed": 1, "loser": "Arkansas", "loser_seed": 4, "score": "109-88", "model_pick": "Arizona", "model_confidence": 74.0, "correct": true},
+      {"winner": "Michigan", "winner_seed": 1, "loser": "Alabama", "loser_seed": 4, "score": "90-77", "model_pick": "Michigan", "model_confidence": 70.0, "correct": true},
+      {"winner": "Tennessee", "winner_seed": 6, "loser": "Iowa State", "loser_seed": 2, "score": "76-62", "model_pick": "Iowa State", "model_confidence": 61.0, "correct": false}
+    ],
+    "Elite Eight": [
+      {"winner": "Arizona", "winner_seed": 1, "loser": "Purdue", "loser_seed": 2, "score": "79-64", "region": "West", "model_regional_pick": "Arizona", "correct": true},
+      {"winner": "Illinois", "winner_seed": 3, "loser": "Iowa", "loser_seed": 9, "score": "71-59", "region": "South", "model_regional_pick": "Houston", "correct": false},
+      {"winner": "Michigan", "winner_seed": 1, "loser": "Tennessee", "loser_seed": 6, "score": "95-62", "region": "Midwest", "model_regional_pick": "Michigan", "correct": true},
+      {"winner": "UConn", "winner_seed": 2, "loser": "Duke", "loser_seed": 1, "score": "73-72", "region": "East", "model_regional_pick": "Duke", "correct": false}
+    ],
+    "Final Four": [
+      {"winner": "UConn", "winner_seed": 2, "loser": "Illinois", "loser_seed": 3, "score": "71-62", "date": "2026-04-04", "notes": "Neither team was a model Final Four pick (model had Duke vs Houston in this semi)."},
+      {"winner": "Michigan", "winner_seed": 1, "loser": "Arizona", "loser_seed": 1, "score": "91-73", "date": "2026-04-04", "notes": "Both teams were model Final Four picks. Aday Mara led Michigan with 26 points."}
+    ]
+  },
+  "final_four": {
+    "teams": ["Arizona", "Illinois", "Michigan", "UConn"],
+    "matchups": [
+      {"game": 1, "team1": "UConn", "team1_seed": 2, "team2": "Illinois", "team2_seed": 3, "time": "6:00 PM ET", "date": "2026-04-04"},
+      {"game": 2, "team1": "Arizona", "team1_seed": 1, "team2": "Michigan", "team2_seed": 1, "time": "8:30 PM ET", "date": "2026-04-04"}
+    ],
+    "championship": {"date": "2026-04-06", "time": "8:30 PM ET"},
+    "location": "Lucas Oil Stadium, Indianapolis",
+    "network": "TBS"
+  },
+  "model_accuracy": {
+    "round_of_64": {"correct": 22, "total": 32, "pct": 68.8},
+    "round_of_32": {"correct": 11, "total": 16, "pct": 68.8},
+    "sweet_16": {"correct": 5, "total": 8, "pct": 62.5},
+    "elite_eight": {"correct": 2, "total": 4, "pct": 50.0},
+    "cumulative": {"correct": 40, "total": 60, "pct": 66.7}
+  },
+  "model_final_four_picks": ["Duke", "Houston", "Arizona", "Michigan"],
+  "model_final_four_correct": 2,
+  "model_championship_pick": "Duke",
+  "championship_pick_alive": false
 }
