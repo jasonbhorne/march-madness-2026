@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-04-05",
-  "completed_rounds": ["Round of 64", "Round of 32", "Sweet 16", "Elite Eight", "Final Four"],
+  "last_updated": "2026-04-07",
+  "completed_rounds": ["Round of 64", "Round of 32", "Sweet 16", "Elite Eight", "Final Four", "Championship"],
   "actual_results": {
     "Sweet 16": [
       {"winner": "Duke", "winner_seed": 1, "loser": "St. John's", "loser_seed": 5, "score": "80-75", "model_pick": "Duke", "model_confidence": 83.1, "correct": true},
@@ -21,6 +21,34 @@
     "Final Four": [
       {"winner": "UConn", "winner_seed": 2, "loser": "Illinois", "loser_seed": 3, "score": "71-62", "date": "2026-04-04", "notes": "Neither team was a model Final Four pick (model had Duke vs Houston in this semi)."},
       {"winner": "Michigan", "winner_seed": 1, "loser": "Arizona", "loser_seed": 1, "score": "91-73", "date": "2026-04-04", "notes": "Both teams were model Final Four picks. Aday Mara led Michigan with 26 points."}
+    ],
+    "Championship": [
+      {
+        "winner": "Michigan",
+        "winner_seed": 1,
+        "loser": "UConn",
+        "loser_seed": 2,
+        "score": "69-63",
+        "date": "2026-04-06",
+        "location": "Lucas Oil Stadium, Indianapolis",
+        "model_rerun_pick": "Michigan",
+        "model_rerun_confidence": 72.5,
+        "model_rerun_projected_score": "Michigan 78, UConn 72",
+        "correct": true,
+        "key_players": {
+          "michigan": [
+            {"name": "Elliot Cadeau", "pts": 19, "note": "led all scorers"},
+            {"name": "Daniel Lendeborg", "pts": 13, "note": "played with sprained MCL and rolled ankle"},
+            {"name": "Trey McKenney", "note": "step-back 3 with 1:50 left extended lead to 9, sealed win"}
+          ],
+          "uconn": [
+            {"name": "Alex Karaban", "pts": 17, "reb": 11, "note": "double-double, shot 5-of-14"},
+            {"name": "Tarris Reed Jr.", "pts": 13, "reb": 14, "note": "double-double, former Michigan player"},
+            {"name": "Braylon Mullins", "pts": 11, "note": "shot 4-of-17, cold after Elite Eight buzzer-beater vs Duke"}
+          ]
+        },
+        "notes": "Michigan's first title since 1989. UConn foul trouble decisive (Ball, Demary combined 17 min in first half). Michigan 32-22 in paint, 15-of-16 FT. Solo Ball banked 3 with 37 sec left cut it to 67-63 but Michigan sealed at FT line. Model re-run pick Michigan correct; original pick Duke was eliminated E8 by UConn."
+      }
     ]
   },
   "final_four": {
@@ -38,10 +66,15 @@
     "round_of_32": {"correct": 11, "total": 16, "pct": 68.8},
     "sweet_16": {"correct": 5, "total": 8, "pct": 62.5},
     "elite_eight": {"correct": 2, "total": 4, "pct": 50.0},
-    "cumulative": {"correct": 40, "total": 60, "pct": 66.7}
+    "championship": {"correct": 1, "total": 1, "pct": 100.0},
+    "cumulative": {"correct": 41, "total": 61, "pct": 67.2}
   },
   "model_final_four_picks": ["Duke", "Houston", "Arizona", "Michigan"],
   "model_final_four_correct": 2,
   "model_championship_pick": "Duke",
-  "championship_pick_alive": false
+  "championship_pick_alive": false,
+  "model_rerun_championship_pick": "Michigan",
+  "model_rerun_championship_correct": true,
+  "champion": "Michigan",
+  "championship_score": "69-63"
 }
